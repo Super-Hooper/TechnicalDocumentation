@@ -1,0 +1,76 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset = "utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Documentation Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div>
+            <header><h1>3D Printing Docs</h1></header>
+        </div>   
+        <ul>
+            <li><a href="#types_of_3d_printers" title="Link to types of 3d printers" class="nav-link">Types of 3D Printers</a></li>
+            <li><a href="#slicing" title="Link to slicing" class="nav-link">Slicing</a></li>
+            <li><a href="#g-code" title="Link to g-code" class="nav-link">G-Code</a></li>
+            <li><a href="#alignment" title="Link to alignment" class="nav-link">Alignment</a></li>
+            <li><a href="#layer_height" title="Link to layer height" class="nav-link">Layer Height</a></li>
+        </ul>
+    </nav>
+    <main id="main-doc">
+        <section id="types_of_3d_printers" class="main-section">
+            <header><h2>Types of 3D Printers<h2></header>
+            <p>There are two main types of desktop 3d printers: </p>
+            <ul>
+                <li>FDM (Fused Deposition Modeling)</li>
+                <li>SLA (Stereolithography)</li>
+            </ul>
+            <p>FDM printers are typically cheaper and produce lower quality prints compared SLA. You will likely observe the individual layers in the FDM print versus a nearly smooth surface in an SLA print. FDM printers deposit plastic at a specified layer height. SLA printers instead use resin and special UV masks to cure the resin.</p>
+        </section>
+        <section id="slicing" class="main-section">
+            <header><h2>Slicing<h2></header>
+            <p>Slicing is an intermediate step between a 3D file and the physical machine. Slicing is performed by software programs. 3D models are loaded into the software, and the slicer slices the model into the required layers. Since each printer has unique settings, slicing software has many configuration options to ensure optimum settings for the specific printer.</p>
+            <p>Some common slicer settings that the user can configure are: </p>
+            <ul>
+                <li>Layer Height (sometimes referred to as quality or resolution</li>
+                <li>Enable supports</li>
+                <li>Enable adhesive raft or brim</li>
+            </ul>
+        </section>
+        <section id="g-code" class="main-section">
+            <header><h2>G-Code<h2></header>
+            <p>G-code is the code that the slicer produces that the 3D printer can understand. The code commands the printer temperature settings, extrusion, and motor position/speed. One thing to note is that slicers typically automatically produce a starting code with: </p>
+            <code>
+                G28 ; Home
+            </code>
+            <p>This command homes printer before the print begins. The issue is that if you have a printer that has auto bed leveling capability, the G28 command will disable the use of the bed mesh.</p>
+            <p>To fix this, you should configure your slicer settings to add the following g-code command after the home command: </p>
+            <code>
+                M420 S1; Enable bed mesh
+            </code>
+            <p>Here are some other sample g-code commands you might come across in the g-code file: </p>
+            <code>
+                G0/G1 ;Rapid/Controlled Motion
+            </code></br>
+            <code>
+                G2 ;Clockwise Motion
+            </code></br>
+            <code>
+                G20/G21 ;Inches or Millimeters
+            </code>
+        </section>
+        <section id="alignment" class="main-section">
+            <header><h2>Alignment<h2></header>
+            <p>Alignment is critical in producing a quality print. If the alignment is not perfect, the first layer will not print evenly which can mess up the whole print. If your printer has auto bed leveling capability, you should first manually level the bed as close as possible. This will allow the auto bed leveling to be a little more reliable. </p>
+            <p>If you are having a difficult time with alignment of the nozzle to the bed, you may need to check the alignment of the 3D printer frame, specifically the X-Axis bar (which the extruder rides on).</p>
+        </section>
+        <section id="layer_height" class="main-section">
+            <header><h2>Layer Height<h2></header>
+            <p>Layer height is the height the printer moves up for each layer. Lower layer heights produce finer quality prints, with the trade-off of longer print time.</p>
+            <p>It is possible to adjust the height of the first layer in the slicer settings.</p>
+        </section>
+    </main>
+</body>
+</html>
